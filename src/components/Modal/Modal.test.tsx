@@ -54,6 +54,43 @@ test("can click trigger button to open modal", () => {
 
   const modalContent = screen.getByText("test content");
   expect(modalContent).toBeInTheDocument();
-
-  screen.debug();
 });
+
+// // TODO Investigate and fix tab focus test
+// test.only("can only focus elements in modal on tab press", () => {
+//   render(
+//     <Modal
+//       isOpen={true}
+//       setIsOpen={() => null}
+//       triggerText={testModalContent.triggerText}
+//       heading={testModalContent.heading}
+//       description={testModalContent.description}
+//       content={
+//         <>
+//           <p>{testModalContent.content.text}</p>
+//           <button>{testModalContent.content.button}</button>
+//         </>
+//       }
+//     />
+//   );
+
+//   const modalContent = screen.getByText("test content");
+//   expect(modalContent).toBeInTheDocument();
+
+//   const modalContentButton = screen.getByRole("button", {
+//     name: /test content button/i
+//   });
+
+//   fireEvent.keyDown(window, { key: "Tab", code: "Tab", charCode: 9 });
+//   // userEvent.tab();
+
+//   // screen.debug();
+//   expect(modalContentButton).toHaveFocus();
+
+//   userEvent.tab();
+//   // userEvent.tab();
+
+//   expect(modalContentButton).toHaveFocus();
+
+//   // screen.debug();
+// });

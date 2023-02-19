@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { createPortal } from "react-dom";
+import useFocusTrap from "../../hooks/useFocusTrap";
 import { ModalBackDrop, ModalContainer } from "./Modal.styles";
 
 type ModalProps = {
@@ -19,13 +20,14 @@ const Modal = ({
   description,
   content
 }: ModalProps) => {
+  const [containerRef, handleKeyDown] = useFocusTrap();
   return (
     <>
       <button onClick={() => setIsOpen(true)}>{triggerText}</button>
       {isOpen &&
         createPortal(
           <ModalBackDrop>
-            <ModalContainer>
+            <ModalContainer ref={containerRef} onKeyDown={handleKeyDown}>
               <h2>{heading}</h2>
               <p>{description}</p>
               {content}
