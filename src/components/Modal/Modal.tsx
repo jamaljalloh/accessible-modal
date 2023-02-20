@@ -27,7 +27,10 @@ const Modal = ({
       {isOpen &&
         createPortal(
           <ModalBackDrop>
-            <ModalContainer ref={containerRef} onKeyDown={handleKeyDown}>
+            <ModalContainer
+              ref={containerRef}
+              onKeyDown={handleKeyDown}
+            >
               <h2>{heading}</h2>
               <p>{description}</p>
               {content}
