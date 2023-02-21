@@ -8,7 +8,7 @@ export const ModalContainer = styled("div", {
   left: "50%",
   transform: " translate(-50%, -50%)",
   zIndex: 700,
-  width: " inherit",
+  width: "inherit",
   outline: 0,
   border: "1px solid red",
   borderRadius: "4px",
