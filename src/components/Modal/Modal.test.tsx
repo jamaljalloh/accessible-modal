@@ -91,7 +91,7 @@ test("can only focus elements in modal on tab press", () => {
   expect(modalContentButton).toHaveFocus();
 });
 
-test("closes modal on backdrop", () => {
+test("closes modal on backdrop click", () => {
   render(<TestModal open />);
 
   expect(
@@ -102,6 +102,24 @@ test("closes modal on backdrop", () => {
 
   const modalBackdrop = screen.getByTestId("modal-backdrop");
   userEvent.click(modalBackdrop);
+
+  expect(
+    screen.queryByRole("heading", {
+      name: /test heading/i
+    })
+  ).not.toBeInTheDocument();
+});
+
+test("closes modal on escape button click", () => {
+  render(<TestModal open />);
+
+  expect(
+    screen.queryByRole("heading", {
+      name: /test heading/i
+    })
+  ).toBeInTheDocument();
+
+  userEvent.type(document.body, "{esc}");
 
   expect(
     screen.queryByRole("heading", {

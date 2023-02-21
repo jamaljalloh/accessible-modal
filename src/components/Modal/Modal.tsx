@@ -23,13 +23,28 @@ const Modal = ({
   const [containerRef, handleKeyDown] = useFocusTrap();
 
   useEffect(() => {
-    isOpen
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "unset");
+    const closeOnEscapePress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", closeOnEscapePress);
+    } else {
+      document.body.style.overflow = "unset";
+      document.removeEventListener("keydown", closeOnEscapePress);
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+      document.removeEventListener("keydown", closeOnEscapePress);
+    };
   }, [isOpen]);
 
-  // TODO Add escape key exit
   // TODO Add aria tags
+  // TODO Fix close on click bug
 
   return (
     <>
