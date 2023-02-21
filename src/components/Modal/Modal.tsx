@@ -21,12 +21,18 @@ const Modal = ({
   content
 }: ModalProps) => {
   const [containerRef, handleKeyDown] = useFocusTrap();
+  // TODO Add escape key exit
+  // TODO Add no scroll on page overflow
+  // TODO Add aria tags
   return (
     <>
       <button onClick={() => setIsOpen(true)}>{triggerText}</button>
       {isOpen &&
         createPortal(
-          <ModalBackDrop>
+          <ModalBackDrop
+            data-testid="modal-backdrop"
+            onClick={() => setIsOpen(false)}
+          >
             <ModalContainer
               ref={containerRef}
               onKeyDown={handleKeyDown}

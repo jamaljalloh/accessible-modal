@@ -1,5 +1,7 @@
 import { styled } from "@stitches/react";
 
+// TODO Update styles
+
 export const ModalContainer = styled("div", {
   position: "fixed",
   top: "50%",
@@ -8,11 +10,10 @@ export const ModalContainer = styled("div", {
   zIndex: 700,
   width: " inherit",
   outline: 0,
-  border: '1px solid red',
-  borderRadius: '4px',
-  backgroundColor: 'white'
+  border: "1px solid red",
+  borderRadius: "4px",
+  backgroundColor: "white"
 });
-
 
 export const ModalBackDrop = styled("div", {
   position: "fixed",
