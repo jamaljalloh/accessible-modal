@@ -14,7 +14,8 @@ const useFocusTrap = (): [
             "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
           );
         const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+        const lastElement =
+          focusableElements[focusableElements.length - 1];
 
         if (event.shiftKey) {
           if (document.activeElement === firstElement) {
@@ -22,7 +23,6 @@ const useFocusTrap = (): [
             event.preventDefault();
           }
         } else {
-          // console.log("tab pressed");
           if (document.activeElement === lastElement) {
             firstElement.focus();
             event.preventDefault();

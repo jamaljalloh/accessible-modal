@@ -1,7 +1,11 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import useFocusTrap from "../../hooks/useFocusTrap";
-import { ModalBackDrop, ModalContainer } from "./Modal.styles";
+import {
+  ModalContent,
+  ModalOverlay,
+  ModalWrapper
+} from "./Modal.styles";
 
 type ModalProps = {
   isOpen: boolean;
@@ -20,8 +24,13 @@ const Modal = ({
   description,
   content
 }: ModalProps) => {
-  const [containerRef, handleKeyDown] = useFocusTrap();
+  const [modalRef, handleKeyDown] = useFocusTrap();
+  const lastFocusedElement = useRef<Element | null>(null);
 
+  const headingId = "modal-heading";
+  const descriptionId = "modal-description";
+
+  // ENHANCEMENT Move useEffect into custom useModal hook
   useEffect(() => {
     const closeOnEscapePress = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -30,8 +39,26 @@ const Modal = ({
     };
 
     if (isOpen) {
+      // prevent overflow
       document.body.style.overflow = "hidden";
+
+      // add escape key listener
       document.addEventListener("keydown", closeOnEscapePress);
+
+      // focus first valid element in modal
+      if (modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        ) as NodeListOf<HTMLElement>;
+
+        if (focusableElements.length > 0) {
+          // store last focused element
+          lastFocusedElement.current = document.activeElement;
+
+          // focus first valid element in modal
+          focusableElements[0].focus();
+        }
+      }
     } else {
       document.body.style.overflow = "unset";
       document.removeEventListener("keydown", closeOnEscapePress);
@@ -40,31 +67,44 @@ const Modal = ({
     return () => {
       document.body.style.overflow = "unset";
       document.removeEventListener("keydown", closeOnEscapePress);
+
+      // refocus last focused element
+      if (lastFocusedElement.current instanceof HTMLElement) {
+        lastFocusedElement.current.focus();
+      }
     };
   }, [isOpen]);
-
-  // TODO Add aria tags
-  // TODO Fix close on click bug
 
   return (
     <>
       <button onClick={() => setIsOpen(true)}>{triggerText}</button>
       {isOpen &&
         createPortal(
-          <ModalBackDrop
-            data-testid="modal-backdrop"
-            onClick={() => setIsOpen(false)}
-          >
-            <ModalContainer
-              ref={containerRef}
-              onKeyDown={handleKeyDown}
+          <>
+            <ModalOverlay
+              data-testid="modal-overlay"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            />
+            <ModalWrapper
+              aria-modal
+              aria-labelledby={headingId}
+              aria-describedby={descriptionId}
               tabIndex={-1}
+              role="dialog"
+              ref={modalRef}
+              onKeyDown={handleKeyDown}
             >
-              <h2>{heading}</h2>
-              <p>{description}</p>
-              {content}
-            </ModalContainer>
-          </ModalBackDrop>,
+              <ModalContent>
+                {/* modal-header */}
+                <h2 id={headingId}>{heading}</h2>
+                <p id={descriptionId}>{description}</p>
+                {/* modal body */}
+                {content}
+              </ModalContent>
+            </ModalWrapper>
+          </>,
           document.body
         )}
     </>

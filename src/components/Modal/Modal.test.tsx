@@ -9,7 +9,9 @@ const testModalContent = {
   description: "test description",
   content: {
     text: "test content",
-    button: "test content button"
+    buttonOne: "test content button 1",
+    buttonTwo: "test content button 2",
+    buttonThree: "test content button 3"
   }
 };
 
@@ -25,7 +27,9 @@ const TestModal = ({ open: isOpen = false }: { open?: boolean }) => {
       content={
         <>
           <p>{testModalContent.content.text}</p>
-          <button>{testModalContent.content.button}</button>
+          <button>{testModalContent.content.buttonOne}</button>
+          <button>{testModalContent.content.buttonTwo}</button>
+          <button>{testModalContent.content.buttonThree}</button>
         </>
       }
     />
@@ -66,32 +70,47 @@ test("can click trigger button to open modal", () => {
   expect(modalContent).toBeInTheDocument();
 });
 
-test("can only focus elements in modal on tab press", () => {
+test("focuses first valid element when opened", () => {
   render(<TestModal open />);
 
-  const modalContent = screen.getByText("test content");
-  expect(modalContent).toBeInTheDocument();
-
-  const modalContentButton = screen.getByRole("button", {
-    name: /test content button/i
+  const modalContentButtonOne = screen.getByRole("button", {
+    name: /test content button 1/i
   });
 
-  modalContentButton.focus();
+  expect(modalContentButtonOne).toHaveFocus();
+});
 
-  userEvent.tab();
+test("only focuses elements within the modal when tabbing", () => {
+  render(<TestModal open />);
 
-  expect(modalContentButton).toHaveFocus();
-
-  userEvent.tab();
-
-  expect(modalContentButton).toHaveFocus();
+  const modalContentButtonOne = screen.getByRole("button", {
+    name: /test content button 1/i
+  });
+  const modalContentButtonTwo = screen.getByRole("button", {
+    name: /test content button 2/i
+  });
+  const modalContentButtonThree = screen.getByRole("button", {
+    name: /test content button 3/i
+  });
 
   userEvent.tab({ shift: true });
 
-  expect(modalContentButton).toHaveFocus();
+  expect(modalContentButtonThree).toHaveFocus();
+
+  userEvent.tab();
+
+  expect(modalContentButtonOne).toHaveFocus();
+
+  userEvent.tab();
+
+  expect(modalContentButtonTwo).toHaveFocus();
+
+  userEvent.tab();
+
+  expect(modalContentButtonThree).toHaveFocus();
 });
 
-test("closes modal on backdrop click", () => {
+test("closes modal on overlay click", () => {
   render(<TestModal open />);
 
   expect(
@@ -100,8 +119,8 @@ test("closes modal on backdrop click", () => {
     })
   ).toBeInTheDocument();
 
-  const modalBackdrop = screen.getByTestId("modal-backdrop");
-  userEvent.click(modalBackdrop);
+  const modalOverlay = screen.getByTestId("modal-overlay");
+  userEvent.click(modalOverlay);
 
   expect(
     screen.queryByRole("heading", {
@@ -126,4 +145,24 @@ test("closes modal on escape button click", () => {
       name: /test heading/i
     })
   ).not.toBeInTheDocument();
+});
+
+test("focus returned to last active element on close", () => {
+  render(<TestModal />);
+
+  const triggerButton = screen.getByRole("button", {
+    name: /open modal/i
+  });
+  triggerButton.focus();
+  userEvent.click(triggerButton);
+
+  expect(
+    screen.queryByRole("heading", {
+      name: /test heading/i
+    })
+  ).toBeInTheDocument();
+
+  userEvent.type(document.body, "{esc}");
+
+  expect(triggerButton).toHaveFocus();
 });
