@@ -5,10 +5,12 @@ import ApplyLoanModal from "./components/Modal/Variants/ApplyLoanModal";
 export default function App() {
   return (
     <div className="App">
-      <h1>NewDay</h1>
-      <h2>Let&apos;s see a modal</h2>
-      <ApplyLoanModal />
-      <LongText />
+      <main>
+        <h1>NewDay</h1>
+        <h2>Let&apos;s see a modal</h2>
+        <ApplyLoanModal />
+        <LongText />
+      </main>
     </div>
   );
 }

@@ -73,7 +73,7 @@ const Modal = ({
         lastFocusedElement.current.focus();
       }
     };
-  }, [isOpen]);
+  }, [isOpen, setIsOpen, modalRef]);
 
   return (
     <>
@@ -97,6 +97,7 @@ const Modal = ({
               onKeyDown={handleKeyDown}
             >
               <ModalContent>
+                {/* TODO Fix modal styling */}
                 {/* modal-header */}
                 <h2 id={headingId}>{heading}</h2>
                 <p id={descriptionId}>{description}</p>

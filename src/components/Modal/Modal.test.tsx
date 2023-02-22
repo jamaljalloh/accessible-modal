@@ -1,7 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { axe, toHaveNoViolations } from "jest-axe";
 import { useState } from "react";
 import Modal from "./Modal";
+
+expect.extend(toHaveNoViolations);
 
 const testModalContent = {
   triggerText: "open modal",
@@ -36,8 +39,6 @@ const TestModal = ({ open: isOpen = false }: { open?: boolean }) => {
   );
 };
 
-// TODO Add axe accessibility tests
-
 test("only trigger button visible when not open", () => {
   render(<TestModal />);
   const triggerButton = screen.getByRole("button", {
@@ -68,6 +69,12 @@ test("can click trigger button to open modal", () => {
 
   const modalContent = screen.getByText("test content");
   expect(modalContent).toBeInTheDocument();
+});
+
+test("should not violate any accessibility rules", async () => {
+  const { container } = render(<TestModal open />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
 });
 
 test("focuses first valid element when opened", () => {
