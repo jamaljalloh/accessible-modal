@@ -1,16 +1,34 @@
-import "./App.scss";
 import { LongText } from "./components/LongText/LongText";
-import ApplyLoanModal from "./components/Modal/Variants/ApplyLoanModal";
+import ApplyLoanModal from "./components/Modal/Variants/ApplyLoan/ApplyLoanModal";
+import { styled, useGlobalStyles } from "./stitches.config";
+
+const StyledApp = styled("div", {
+  textAlign: "center",
+  h1: {
+    backgroundImage: "$fontGradient",
+    backgroundClip: "text"
+  }
+});
+
+const Heading = styled("h1", {
+  background: "$fontGradient"
+});
 
 export default function App() {
+  useGlobalStyles();
   return (
-    <div className="App">
+    <StyledApp>
       <main>
-        <h1>NewDay</h1>
-        <h2>Let&apos;s see a modal</h2>
+        <Heading
+          css={{
+            WebkitTextFillColor: "transparent"
+          }}
+        >
+          MyLoans
+        </Heading>
         <ApplyLoanModal />
         <LongText />
       </main>
-    </div>
+    </StyledApp>
   );
 }

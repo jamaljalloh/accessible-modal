@@ -1,14 +1,22 @@
-import { styled } from "@stitches/react";
-
-// TODO Update styles
+import { styled } from "../../stitches.config";
 
 export const ModalContent = styled("div", {
-  zIndex: 100,
   position: "relative",
-  margin: "auto",
-  border: "1px solid red",
-  borderRadius: "4px",
-  backgroundColor: "white"
+  borderRadius: "6px",
+  backgroundColor: "white",
+  width: "90vw",
+  maxWidth: "450px",
+  maxHeight: "85vh",
+  padding: "16px"
+});
+
+export const Description = styled("p", {
+  color: "$grey300",
+  margin: "12px 0 20px"
+});
+
+export const Heading = styled("h2", {
+  margin: 0
 });
 
 export const ModalWrapper = styled("div", {
@@ -16,7 +24,7 @@ export const ModalWrapper = styled("div", {
   top: "50%",
   left: "50%",
   transform: " translate(-50%, -50%)",
-  zIndex: 700,
+  zIndex: 200,
   width: "inherit",
   outline: 0
 });
@@ -27,6 +35,6 @@ export const ModalOverlay = styled("div", {
   height: "100%",
   top: 0,
   left: 0,
-  background: "rgba(0, 0, 0, 0.3)",
-  zIndex: 500
+  background: "$backgroundOverlay",
+  zIndex: 100
 });

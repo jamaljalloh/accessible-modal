@@ -1,4 +1,5 @@
 {
+  "quoteProps": "as-needed",
   "printWidth": 70,
   "tabWidth": 2,
   "useTabs": false,

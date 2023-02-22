@@ -1,7 +1,10 @@
 import { ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import useFocusTrap from "../../hooks/useFocusTrap";
+import { Button } from "../Button/Button.styles";
 import {
+  Description,
+  Heading,
   ModalContent,
   ModalOverlay,
   ModalWrapper
@@ -77,7 +80,8 @@ const Modal = ({
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>{triggerText}</button>
+      {/* ENHANCEMENT Allow custom button be passed in */}
+      <Button onClick={() => setIsOpen(true)}>{triggerText}</Button>
       {isOpen &&
         createPortal(
           <>
@@ -97,11 +101,11 @@ const Modal = ({
               onKeyDown={handleKeyDown}
             >
               <ModalContent>
-                {/* TODO Fix modal styling */}
-                {/* modal-header */}
-                <h2 id={headingId}>{heading}</h2>
-                <p id={descriptionId}>{description}</p>
-                {/* modal body */}
+                <Heading id={headingId}>{heading}</Heading>
+                <Description id={descriptionId}>
+                  {description}
+                </Description>
+                {/* ENHANCEMENT Add close button */}
                 {content}
               </ModalContent>
             </ModalWrapper>
