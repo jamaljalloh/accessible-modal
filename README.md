@@ -1,46 +1,27 @@
-# Getting Started with Create React App
+# Accessible Modal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Attempt at creating a WCAG 2.1 AA compliant modal, view [commit history](commits/main) to get idea of how it was iterated - created with [CRA](https://create-react-app.dev/docs/adding-typescript/#installation) and using [stitches](https://stitches.dev/) for styling
 
-## Available Scripts
+##  Key Parts
 
-In the project directory, you can run:
+- [Focus Trap Hook](src/hooks/useFocusTrap.tsx)
+- [Base Modal Component](src/components/Modal/Modal.tsx)
+- [Modal Variant / Implementation](src/components/Modal/Variants/ApplyLoan/ApplyLoanModal.tsx)
 
-### `npm start`
+##  Design Inspiration
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- <https://www.radix-ui.com/docs/primitives/components/dialog>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Helpful Accessibility Material
 
-### `npm test`
+- <https://www.sarasoueidan.com/blog/focus-indicators/#new-focus-indicator-accessibility-requirements-in-wcag-2.2>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- <https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/>
 
-### `npm run build`
+- <https://ebay.gitbook.io/mindpatterns/disclosure/lightbox-dialog>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Extensions Ideas given more time
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Pull useEffect within [Modal](src/components/Modal/Modal.tsx#L37) into separate hook
+- Add ability to pass in any trigger button
+- Add close button to Modal Header
