@@ -27,3 +27,7 @@ Attempt at creating a WCAG 2.1 AA compliant modal, view [commit history](https:/
 - Pull useEffect within [Modal](src/components/Modal/Modal.tsx#L37) into separate hook
 - Add ability to pass in any trigger button
 - Add close button to Modal Header
+
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/45198758/220857608-0d68bd47-4d2a-4b07-9f2f-733db688c8a7.png)
