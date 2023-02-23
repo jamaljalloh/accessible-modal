@@ -21,11 +21,11 @@ const ApplyLoanModal = () => {
         <>
           <Field>
             <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" />
+            <Input id="name" type="text" name="name" />
           </Field>
           <Field>
             <Label htmlFor="amount">Amount</Label>
-            <Input id="amount" type="number" />
+            <Input id="amount" type="number" name="amount" />
           </Field>
           <ActionWrapper>
             <Button color="green" onClick={() => setOpen(false)}>
