@@ -1,6 +1,8 @@
 # Accessible Modal
 
-Attempt at creating a WCAG 2.1 AA compliant modal, view [commit history](commits/main) to get idea of how it was iterated - created with [CRA](https://create-react-app.dev/docs/adding-typescript/#installation) and using [stitches](https://stitches.dev/) for styling
+Attempt at creating a WCAG 2.1 AA compliant modal, view [commit history](https://github.com/jamaljalloh/accessible-modal/commits/main) to get idea of how it was iterated - created with [CRA](https://create-react-app.dev/docs/adding-typescript/#installation) and using [stitches](https://stitches.dev/) for styling
+
+<https://user-images.githubusercontent.com/45198758/220814646-3b7c004d-47a8-4d7a-a8f2-8f3b08635937.mp4>
 
 ##  Key Parts
 
@@ -20,7 +22,7 @@ Attempt at creating a WCAG 2.1 AA compliant modal, view [commit history](commits
 
 - <https://ebay.gitbook.io/mindpatterns/disclosure/lightbox-dialog>
 
-## Extensions Ideas given more time
+## Extensions ideas given more time
 
 - Pull useEffect within [Modal](src/components/Modal/Modal.tsx#L37) into separate hook
 - Add ability to pass in any trigger button
