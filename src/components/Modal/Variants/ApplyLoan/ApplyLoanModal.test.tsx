@@ -60,7 +60,9 @@ describe("when opened", () => {
   test.each(["Apply", "Cancel"])(
     "should exit with %s button press",
     (buttonName: string) => {
-      const actionBtn = screen.getByRole("button", { name: "Apply" });
+      const actionBtn = screen.getByRole("button", {
+        name: buttonName
+      });
       userEvent.click(actionBtn);
       const modalHeading = screen.queryByRole("heading", {
         name: /Apply for a loan/i
